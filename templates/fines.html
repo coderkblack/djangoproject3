@@ -1,0 +1,88 @@
+{% extends 'master.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Fines</title>
+{% endblock %}
+
+{% block extra_css %}
+    <!-- Custom styles for this page -->
+    <link href="{% static 'vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="card mb-4 py-3 border-left-danger">
+            <div class="card-body text-danger">
+                Fines are subjected to clients who fail to complete payment on or before the deadline date.
+            </div>
+        </div>
+    </div>
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Fines</h1>
+    <p class="mb-4">Houses on sale</p>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Clients that have incurred fines on delayed payment</h6>
+            {#                            video 6 - 7:39#}
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>House</th>
+                        <th>Address</th>
+                        <th>Developer</th>
+                        <th>Fine</th>
+                        <th>Overdue</th>
+                        <th>Pay</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th>Name</th>
+                        <th>House</th>
+                        <th>Address</th>
+                        <th>Developer</th>
+                        <th>Fine</th>
+                        <th>Overdue</th>
+                        <th>Pay</th>
+                    </tr>
+                    </tfoot>
+
+                    <tbody>
+                    {% for onsale in fines %}
+                        <tr>
+                            <td>{{ onsale.client.name }}</td>
+                            <td>{{ onsale.house.name }}</td>
+                            <td>{{ onsale.house.address }}</td>
+                            <td>{{ onsale.house.developer }}</td>
+                            <td>{{ onsale.total_fine }}</td>
+                            <td>{{ onsale.overdue_days }}</td>
+                            <td>
+                                <a href="{% url 'pay_overdue' onsale.id %}"
+                                   class="btn btn-outline-dark btn-sm">Purchase</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    <!-- Page level plugins -->
+    <script src="{% static 'vendor/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="{% static 'js/demo/datatables-demo.js' %}"></script>
+{% endblock %}

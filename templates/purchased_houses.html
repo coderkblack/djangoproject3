@@ -1,0 +1,76 @@
+{% extends 'master.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Purchased Houses</title>
+{% endblock %}
+
+{% block extra_css %}
+    <!-- Custom styles for this page -->
+    <link href="{% static 'vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Purchased Houses</h1>
+    <p class="mb-4">All purchased houses</p>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Feel free</h6>
+            {#                            video 6 - 7:39#}
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>House</th>
+                        <th>Customer</th>
+                        <th>Status</th>
+                        <th>Deadline of Payment</th>
+                        <th>Purchase Date</th>
+                        <th>Return</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th>House</th>
+                        <th>Customer</th>
+                        <th>Status</th>
+                        <th>Deadline of Payment</th>
+                        <th>Purchase Date</th>
+                        <th>Return</th>
+                    </tr>
+                    </tfoot>
+
+                    <tbody>
+                    {% for purchase in purchased %}
+                        <tr>
+                            <td>{{ purchase.house.name }}</td>
+                            <td>{{ purchase.customer.name }}</td>
+                            <td>{{ purchase.status }}</td>
+                            <td>{{ purchase.deadline_of_payment }}</td>
+                            <td>{{ purchase.created_at | date:"d-m-Y" }}</td>
+                            <td>
+                                <a href="{% url 'refund' purchase.id %}" class="btn btn-outline-dark btn-sm">Ask for refund</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    <!-- Page level plugins -->
+    <script src="{% static 'vendor/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="{% static 'js/demo/datatables-demo.js' %}"></script>
+{% endblock %}
