@@ -62,6 +62,7 @@ class Onsale(models.Model):
         verbose_name = 'Onsale'
         verbose_name_plural = 'Onsales'
         ordering= ['-created_at']
+        db_table = 'onsale'
 
 class Payment(models.Model):
     onsale = models.ForeignKey(Onsale, on_delete=models.CASCADE)

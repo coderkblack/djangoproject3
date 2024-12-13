@@ -28,5 +28,6 @@ urlpatterns = [
     path('purchase/<int:id>', views.purchase_house, name='purchase'),
     path('refund/<int:id>', views.refund, name='refund'),
     path('pay/<int:id>', views.pay_overdue, name='pay_overdue'),
+    path('handle/response/transactions', views.callbacks, name='callbacks'),
     path('admin/', admin.site.urls),
 ]
